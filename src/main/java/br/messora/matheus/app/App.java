@@ -11,23 +11,26 @@ public class App {
         Set<Character> duplicates = new HashSet<>();
 
         while(input.hasNext()) {
-            Character next = input.getNext();
-
-            boolean charAlreadyFound = duplicates.contains(next);
-            if(!charAlreadyFound) {
-                boolean isUnique = uniques.contains(next);
-                if(isUnique){
-                    duplicates.add(next);
-                    uniques.remove(next);
-                }else {
-                    uniques.add(next);
-                }
-            }
+            char next = input.getNext();
+            processCharacter(next, uniques, duplicates);
         }
 
         if(uniques.isEmpty()) {
             throw new IllegalArgumentException("O stream informado nao possui caracteres unicos.");
         }
         return uniques.get(0);
+    }
+
+    private static void processCharacter(char next, List<Character> uniques, Set<Character> duplicates) {
+        boolean charAlreadyFound = duplicates.contains(next);
+        if(!charAlreadyFound) {
+            boolean isUnique = uniques.contains(next);
+            if(isUnique){
+                duplicates.add(next);
+                uniques.remove(next);
+            }else {
+                uniques.add(next);
+            }
+        }
     }
 }
